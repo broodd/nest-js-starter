@@ -1,0 +1,110 @@
+mark {
+  background-color: #fff;
+  color: #0fb7e0;
+}
+
+#form {
+  width: 100%;
+  height: 50px;
+}
+
+form {
+  width: 600px;
+  float: left;
+}
+
+form input {
+  margin-right: 20px;
+  width: 80px;
+}
+
+form label {
+  margin-right: 5px;
+}
+
+#table {
+  display: table;
+  margin-bottom: 20px;
+  border-collapse: collapse;
+  border: 2px solid #697c81;
+}
+
+.table-header {
+  display: table-row-group;
+  color: #fff;
+  background: #697c81;
+}
+
+.table-header .table-cell {
+  padding: 10px;
+  font-size: 17px;
+  font-weight: bold;
+  /* height: 30px; */
+  border: 1px solid #ffffff;
+  text-align: center; 
+  vertical-align: middle;
+  white-space: normal;
+}
+
+.table-body {
+  display: table-row-group;
+  color: #000000;
+}
+
+.table-body .table-cell {
+  padding: 6px 10px;
+  /* height: 30px; */
+  font-size: 14px;
+  font-family: monospace;
+  border: 1px solid #e6e6e6;
+  text-align: left;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.table-row {
+  display: table-row;
+}
+
+.table-cell {
+  display: table-cell;
+}
+
+.table-cell input {
+  border: none;
+  display: block;
+  margin : 0 auto;
+  width: 100%;
+  height: 30px;
+}
+
+.cell-search {
+  padding: 0px !important;
+}
+
+.cell-url {
+  min-width: 400px;
+  white-space: normal !important;
+}
+
+.cell-auth-token {
+  min-width: 300px;
+  white-space: normal !important;
+  word-break: break-all;
+}
+
+
+.btn-copy-text, .btn-copy-link, .btn-open-link {
+  margin-left: 8px;
+  border-width: 3px;
+  border-radius: 10px;
+  background: #e6e6e6;
+}
+
+.btn-copy-text:focus, .btn-copy-link:focus, .btn-open-link:focus { 
+  outline: none;
+}
+
+.row-clicked {
+  background-color: #d2dde0;
+}
