@@ -1,0 +1,20 @@
+version: '3'
+services:
+  app:
+    build: .
+    env_file: ./.env
+    volumes:
+      - ./uploads:/app/uploads
+    depends_on:
+      - postgres
+    ports:
+      - '${EXPOSE_WEB_PORT:-8080}:3000'
+
+  postgres:
+    container_name: starter-pg
+    image: mdillon/postgis
+    env_file: ./.env
+    volumes:
+      - ../db:/var/lib/postgresql/data
+    ports:
+      - '${EXPOSE_DB_PORT:-5432}:5432'

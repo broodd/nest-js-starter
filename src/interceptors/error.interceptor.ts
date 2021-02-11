@@ -1,4 +1,10 @@
-import { CallHandler, ExecutionContext, HttpException, Injectable, NestInterceptor } from '@nestjs/common';
+import {
+  CallHandler,
+  ExecutionContext,
+  HttpException,
+  Injectable,
+  NestInterceptor,
+} from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
@@ -8,7 +14,11 @@ export class ErrorInterceptor implements NestInterceptor {
     const req = context.switchToHttp().getRequest();
     return next.handle().pipe(
       catchError(e => {
-        if (['SequelizeUniqueConstraintError', 'SequelizeDatabaseError'].includes(e.name)) {
+        if (
+          ['SequelizeUniqueConstraintError', 'SequelizeDatabaseError'].includes(
+            e.name,
+          )
+        ) {
           Object.getOwnPropertyNames(e).forEach(key =>
             !['name', 'message', 'sql'].includes(key) ? delete e[key] : {},
           );
@@ -30,17 +40,25 @@ export class ErrorInterceptor implements NestInterceptor {
             typeof e.response.message === 'string'
               ? [e.response.message]
               : Array.isArray(e.response.message)
-              ? e.response.message
+              ? e.response.message.map(error =>
+                  typeof error === 'string'
+                    ? error
+                    : `error.property.${error.property}`,
+                )
               : ['error'];
-
           response.statusCode = e.response.statusCode || 400;
         } else if (e.message) {
           response.errors =
-            typeof e.message === 'string' ? [e.message] : Array.isArray(e.message) ? e.message : ['error'];
+            typeof e.message === 'string'
+              ? [e.message]
+              : Array.isArray(e.message)
+              ? e.message
+              : ['error'];
 
           response.statusCode = e.status || 400;
         }
 
+        // Variables for loger
         req.errors = response.errors;
         req.serverError = JSON.stringify(e, Object.getOwnPropertyNames(e));
 

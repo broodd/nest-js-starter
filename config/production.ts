@@ -4,10 +4,10 @@ export default () => ({
   },
   database: {
     type: 'postgres',
-    host: 'localhost',
+    host: 'postgres',
     port: 5432,
     database: 'starter',
-    username: 'postgres',
+    username: 'starter',
     password: '1234',
     synchronize: true,
     logging: false,

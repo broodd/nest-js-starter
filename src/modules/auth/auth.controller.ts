@@ -9,7 +9,6 @@ import {
 } from '@nestjs/swagger';
 import { ErrorDto } from '../../dtos/simple-response.dto';
 import { AuthResponse } from './dto/response.dto';
-import * as bcrypt from 'bcrypt';
 
 @ApiTags('auth')
 @Controller('auth')

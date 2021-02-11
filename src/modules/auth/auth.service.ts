@@ -96,10 +96,6 @@ export class AuthService {
     });
 
     if (user) {
-      await user.update({
-        firebaseId,
-      });
-
       await this.clearRefreshTokens(user.id);
     } else {
       user = await this.userModel.create({

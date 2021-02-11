@@ -10,7 +10,7 @@ export default () => ({
     username: 'postgres',
     password: '1234',
     synchronize: true,
-    logging: console.log,
+    logging: false,
   },
   accessToken: {
     secret: 'fg7f6ul5wb',
