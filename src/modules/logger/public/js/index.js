@@ -219,9 +219,8 @@ window.onload = async () => {
             row.dataset.id = log.id;
           } else if (logName === 'createdAt') {
             const date = new Date(log[logName]);
-            cell.innerHTML = `${date.getDate()}-${
-              date.getMonth() + 1
-            }-${date.getFullYear()} <mark>${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}.${date.getMilliseconds()}</mark>`;
+            cell.innerHTML = `${date.getDate()}-${date.getMonth() + 1
+              }-${date.getFullYear()} <mark>${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}.${date.getMilliseconds()}</mark>`;
           } else if (logName === 'errors') {
             const errors = log.errors ? log.errors.join('\n') : '';
             cell.innerHTML = `<pre>${errors}</pre>`;
@@ -269,10 +268,10 @@ window.onload = async () => {
             !cell.innerText
               ? null
               : cell.dataset.log === 'reqBody'
-              ? (log[cell.dataset.log] = JSON.parse(cell.innerText))
-              : cell.dataset.log === 'errors'
-              ? (log[cell.dataset.log] = cell.innerText.split('\n'))
-              : (log[cell.dataset.log] = cell.innerText.replace(/\n/g, '\n')),
+                ? (log[cell.dataset.log] = JSON.parse(cell.innerText))
+                : cell.dataset.log === 'errors'
+                  ? (log[cell.dataset.log] = cell.innerText.split('\n'))
+                  : (log[cell.dataset.log] = cell.innerText.replace(/\n/g, '\n')),
           );
         copyText(JSON.stringify(log, null, 2));
       }),
