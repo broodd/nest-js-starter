@@ -31,14 +31,4 @@ jobs:
           username: ${{ secrets.USERNAME }}
           host: ${{ secrets.HOST }}
           privateKey: ${{ secrets.PRIVATE_KEY}}
-          command: ls -a
-
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          command: cd ~/nest-js-starter/ && git fetch && git checkout master && git pull origin master && docker-compose build && docker-compose up -d && exit
