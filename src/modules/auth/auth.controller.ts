@@ -24,6 +24,9 @@ export class AuthController {
   }
 
   @Post('/refresh-tokens')
+  @ApiOperation({ summary: 'Refresh accessToken & refreshToken' })
+  @ApiOkResponse({ type: AuthResponse })
+  @ApiBadRequestResponse({ type: ErrorDto })
   async refreshTokens(@Body() refreshDto: RefreshTokenDto) {
     return this.authService.refreshTokens(refreshDto);
   }
