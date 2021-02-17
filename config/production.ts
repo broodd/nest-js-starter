@@ -20,4 +20,7 @@ export default () => ({
     expireIn: [1, 'months'],
     maxCount: 5,
   },
+  cache: {
+    ttl: 3600,
+  },
 });

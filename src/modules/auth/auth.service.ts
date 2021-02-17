@@ -7,8 +7,11 @@ import { JwtService } from '@nestjs/jwt';
 import { JwtPayload } from './jwt-payload.interface';
 import { User } from '../../models/user.model';
 import { InjectModel } from '@nestjs/sequelize';
-import { FirebaseTokenDto } from './dto/credentials.dto';
-import { AuthResponse } from './dto/response.dto';
+import {
+  FirebaseTokenReqDto,
+  SignOutReqDto,
+  TokensDto,
+} from './dto/tokens.dto';
 import { verifyFirebaseIdToken } from '../../helpers/firebase';
 import { RefreshToken } from '../../models/refreshToken.model';
 import { ConfigService } from '@nestjs/config';
@@ -29,7 +32,7 @@ export class AuthService {
     private config: ConfigService,
   ) {}
 
-  private async clearRefreshTokens(userId: number) {
+  public async clearRefreshTokens(userId: number) {
     const tokens = await this.refreshModel.findAll({
       where: { userId },
       order: [['expireAt', 'ASC']],
@@ -53,7 +56,39 @@ export class AuthService {
     });
   }
 
-  private async generateTokens(userId: number): Promise<AuthResponse> {
+  public async deleteRefreshToken(userId: number, refreshToken: string) {
+    const refreshTokens = await this.refreshModel.findAll({
+      where: {
+        userId,
+      },
+      order: [['createdAt', 'DESC']],
+    });
+
+    if (!refreshTokens.length) {
+      throw new BadRequestException('error.notFound.auth.refreshToken');
+    }
+
+    let foundedToken: RefreshToken;
+
+    for (const data of refreshTokens) {
+      if (await bcrypt.compare(refreshToken, data.token)) {
+        foundedToken = data;
+        break;
+      }
+    }
+
+    if (foundedToken === undefined) {
+      throw new BadRequestException('error.notFound.auth.refreshToken');
+    }
+
+    await foundedToken.destroy();
+
+    if (new Date() > new Date(foundedToken.expireAt)) {
+      throw new BadRequestException('error.auth.refreshExpire');
+    }
+  }
+
+  public async generateTokens(userId: number): Promise<TokensDto> {
     const payload: JwtPayload = {
       id: userId,
     };
@@ -85,7 +120,7 @@ export class AuthService {
 
   async signByFirebase({
     firebaseIdToken,
-  }: FirebaseTokenDto): Promise<AuthResponse> {
+  }: FirebaseTokenReqDto): Promise<TokensDto> {
     const decoded = await verifyFirebaseIdToken(firebaseIdToken);
     const firebaseId = decoded.uid;
 
@@ -106,36 +141,12 @@ export class AuthService {
     return this.generateTokens(user.id);
   }
 
+  async signOut({ refreshToken }: SignOutReqDto, user: User) {
+    await this.deleteRefreshToken(user.id, refreshToken);
+  }
+
   async refreshTokens({ userId, refreshToken }) {
-    const refreshTokens = await this.refreshModel.findAll({
-      where: {
-        userId,
-      },
-      order: [['createdAt', 'DESC']],
-    });
-
-    if (!refreshTokens.length) {
-      throw new BadRequestException('error.notFound.auth.refreshToken');
-    }
-
-    let foundedToken: RefreshToken;
-
-    for (const data of refreshTokens) {
-      if (await bcrypt.compare(refreshToken, data.token)) {
-        foundedToken = data;
-        break;
-      }
-    }
-
-    if (foundedToken === undefined) {
-      throw new BadRequestException('error.notFound.auth.refreshToken');
-    }
-
-    await foundedToken.destroy();
-
-    if (new Date() > new Date(foundedToken.expireAt)) {
-      throw new BadRequestException('error.auth.refreshExpire');
-    }
+    await this.deleteRefreshToken(userId, refreshToken);
 
     return this.generateTokens(userId);
   }

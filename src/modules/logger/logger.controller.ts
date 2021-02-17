@@ -1,7 +1,7 @@
 import { Controller, Get, Param, Query, Res } from '@nestjs/common';
 import { ApiExcludeEndpoint } from '@nestjs/swagger';
 import { Response } from 'express';
-import { LoggerReqDto } from './dto/logger.dto';
+import { LoggerReqDto } from './dtos/logger.dto';
 import { LoggerService } from './logger.service';
 
 @Controller('logs')

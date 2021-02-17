@@ -14,10 +14,13 @@ export default () => ({
   },
   accessToken: {
     secret: 'fg7f6ul5wb',
-    expiresIn: '30m',
+    expiresIn: '30days',
   },
   refreshToken: {
     expireIn: [1, 'months'],
     maxCount: 5,
+  },
+  cache: {
+    ttl: 3600,
   },
 });

@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/sequelize';
 import { Response } from 'express';
 import { Op } from 'sequelize';
 import { Log } from '../../models/log.model';
-import { LoggerReqDto } from './dto/logger.dto';
+import { LoggerReqDto } from './dtos/logger.dto';
 
 @Injectable()
 export class LoggerService {

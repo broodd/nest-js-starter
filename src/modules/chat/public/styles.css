@@ -1,0 +1,56 @@
+#messages {
+  height: 500px;
+  overflow-y: scroll;
+}
+
+#app {
+  margin-top: 2rem;
+}
+
+.cursor {
+  cursor: pointer;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.message {
+  display: inline-block;
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 10px;
+  border-bottom-left-radius: 0px;
+  min-width: 50px;
+}
+
+.message__user {
+  display: inline-block;
+  background: #7777;
+  padding: 5px 12px;
+  border-radius: 50%;
+  color: #fff;
+  margin-right: 10px;
+}
+
+.message__time {
+  font-size: 11px;
+  margin-left: 10px;
+  margin-bottom: 5px;
+  align-self: flex-end;
+}
+
+.modal-backdrop {
+  z-index: -99;
+  opacity: 0;
+}
+
+#modal.show .modal {
+  display: block;
+  z-index: 3;
+}
+
+#modal.show .modal-backdrop {
+  z-index: 2;
+  opacity: 0.5;
+}

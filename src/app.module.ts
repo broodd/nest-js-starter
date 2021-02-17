@@ -7,6 +7,8 @@ import { SequelizeModule, SequelizeModuleOptions } from '@nestjs/sequelize';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { LoggerModule } from './modules/logger/logger.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { ChatModule } from './modules/chat/chat.module';
+import { UsersModule } from './modules/users/users.module';
 
 const config =
   process.env.NODE_ENV === 'production' ? configProduction : configDefault;
@@ -54,9 +56,23 @@ const config =
           'public',
         ),
       },
+      {
+        serveRoot: '/chat',
+        rootPath: join(
+          __dirname,
+          '..',
+          '..',
+          'src',
+          'modules',
+          'chat',
+          'public',
+        ),
+      },
     ),
     AuthModule,
     LoggerModule,
+    ChatModule,
+    UsersModule,
   ],
 })
 export class AppModule {}
