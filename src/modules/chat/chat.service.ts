@@ -47,8 +47,8 @@ export class ChatService {
           },
         },
       ],
-      // offset,
-      // limit,
+      offset,
+      limit,
       order: [['updatedAt', 'DESC']],
     });
   }
@@ -64,8 +64,8 @@ export class ChatService {
       where: {
         chatId,
       },
-      // offset,
-      // limit,
+      offset,
+      limit,
       order: [['createdAt', 'DESC']],
     });
 
@@ -83,8 +83,11 @@ export class ChatService {
     await this.checkIsPartipation(chatId, user.id);
 
     return await this.chatPartipantModel.findAndCountAll({
-      // offset,
-      // limit,
+      where: {
+        chatId,
+      },
+      offset,
+      limit,
       order: [['createdAt', 'DESC']],
     });
   }

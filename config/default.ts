@@ -1,6 +1,7 @@
 export default () => ({
   server: {
     port: 3000,
+    baseUrl: 'http://localhost:3000',
   },
   database: {
     type: 'postgres',
@@ -14,7 +15,7 @@ export default () => ({
   },
   accessToken: {
     secret: 'fg7f6ul5wb',
-    expiresIn: '30days',
+    expiresIn: '30 days',
   },
   refreshToken: {
     expireIn: [1, 'months'],

@@ -21,7 +21,6 @@ export class UsersController {
 
   @Get('/')
   @ApiOperation({ summary: 'Get users' })
-  // @ApiOkResponse({ type: TokensDto })
   @ApiBadRequestResponse({ type: ErrorDto })
   getChats(@Query() getDto: PaginationReqDto, @GetUser() user: User) {
     return this.usersService.getUsers(getDto, user);

@@ -9,6 +9,8 @@ import { LoggerModule } from './modules/logger/logger.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { ChatModule } from './modules/chat/chat.module';
 import { UsersModule } from './modules/users/users.module';
+import { UploadsModule } from './modules/uploads/uploads.module';
+import { ProductsModule } from './modules/products/products.module';
 
 const config =
   process.env.NODE_ENV === 'production' ? configProduction : configDefault;
@@ -70,9 +72,11 @@ const config =
       },
     ),
     AuthModule,
-    LoggerModule,
     ChatModule,
     UsersModule,
+    ProductsModule,
+    UploadsModule,
+    LoggerModule,
   ],
 })
 export class AppModule {}

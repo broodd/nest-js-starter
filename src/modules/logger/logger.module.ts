@@ -22,6 +22,8 @@ export class LoggerModule implements NestModule {
       .exclude(
         { path: 'logs', method: RequestMethod.ALL },
         { path: 'logs/(.*)', method: RequestMethod.ALL },
+        { path: 'api', method: RequestMethod.ALL },
+        { path: 'api/(.*)', method: RequestMethod.ALL },
         { path: '/favicon*', method: RequestMethod.ALL },
       )
       .forRoutes('*');
