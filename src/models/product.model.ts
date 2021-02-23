@@ -2,19 +2,17 @@ import { Column, HasMany, Model, Scopes, Table } from 'sequelize-typescript';
 import { ProductTranslation } from './productTranslation.model';
 
 @Scopes(() => ({
-  translate: (lang = 'en') => {
-    return {
-      include: [
-        {
-          model: ProductTranslation,
-          as: 'productTranslation',
-          where: {
-            lang,
-          },
+  translate: (lang = 'en') => ({
+    include: [
+      {
+        model: ProductTranslation,
+        as: 'productTranslation',
+        where: {
+          lang,
         },
-      ],
-    };
-  },
+      },
+    ],
+  }),
 }))
 @Table
 export class Product extends Model {

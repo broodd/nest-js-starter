@@ -13,6 +13,6 @@ export class ProductsController {
   @ApiOperation({ summary: 'Get products' })
   @ApiBadRequestResponse({ type: ErrorDto })
   getChats(@Query() getDto: PaginationReqDto) {
-    return this.productsService.getUsers(getDto);
+    return this.productsService.getProducts(getDto);
   }
 }

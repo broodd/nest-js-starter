@@ -10,7 +10,7 @@ export class ProductsService {
     private productModel: typeof Product,
   ) {}
 
-  async getUsers({ offset, limit }: PaginationReqDto) {
+  async getProducts({ offset, limit }: PaginationReqDto) {
     return await this.productModel
       .scope({ method: ['translate', 'en'] })
       .findAndCountAll({

@@ -37,8 +37,8 @@ export class UsersService {
           [Op.not]: user.id,
         },
       },
-      // offset,
-      // limit,
+      offset,
+      limit,
       order: [['createdAt', 'DESC']],
     });
   }
