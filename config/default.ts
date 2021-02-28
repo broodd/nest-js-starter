@@ -24,4 +24,11 @@ export default () => ({
   cache: {
     ttl: 3600,
   },
+  s3: {
+    endpoint: 'fra1.digitaloceanspaces.com',
+    bucketName: 'starter-files',
+  },
+  i18n: {
+    fallbackLang: 'en',
+  },
 });

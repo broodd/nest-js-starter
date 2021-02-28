@@ -2,6 +2,7 @@ import {
   AutoIncrement,
   BelongsTo,
   Column,
+  DataType,
   ForeignKey,
   Model,
   PrimaryKey,
@@ -10,7 +11,7 @@ import {
 import { Product } from './product.model';
 
 @Table
-export class ProductTranslation extends Model {
+export class ProductI18n extends Model {
   @PrimaryKey
   @AutoIncrement
   @Column
@@ -23,7 +24,7 @@ export class ProductTranslation extends Model {
   @BelongsTo(() => Product)
   product: Product;
 
-  @Column
+  @Column(DataType.TEXT())
   lang: string;
 
   @Column

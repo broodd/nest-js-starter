@@ -9,7 +9,7 @@ import { LoggerModule } from './modules/logger/logger.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { ChatModule } from './modules/chat/chat.module';
 import { UsersModule } from './modules/users/users.module';
-import { UploadsModule } from './modules/uploads/uploads.module';
+import { MediaModule } from './modules/media/media.module';
 import { ProductsModule } from './modules/products/products.module';
 
 const config =
@@ -75,7 +75,7 @@ const config =
     ChatModule,
     UsersModule,
     ProductsModule,
-    UploadsModule,
+    MediaModule,
     LoggerModule,
   ],
 })

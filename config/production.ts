@@ -1,7 +1,7 @@
 export default () => ({
   server: {
     port: 3000,
-    baseUrl: 'http://localhost:3000',
+    baseUrl: 'http://broodd.tech',
   },
   database: {
     type: 'postgres',
@@ -23,5 +23,12 @@ export default () => ({
   },
   cache: {
     ttl: 3600,
+  },
+  s3: {
+    endpoint: 'fra1.digitaloceanspaces.com',
+    bucketName: 'starter-files',
+  },
+  i18n: {
+    fallbackLang: 'en',
   },
 });

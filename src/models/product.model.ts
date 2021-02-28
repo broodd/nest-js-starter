@@ -1,15 +1,21 @@
 import { Column, HasMany, Model, Scopes, Table } from 'sequelize-typescript';
-import { ProductTranslation } from './productTranslation.model';
+import { col, fn } from 'sequelize';
+import { ProductI18n } from './productI18n.model';
 
 @Scopes(() => ({
-  translate: (lang = 'en') => ({
+  i18n: languages => ({
     include: [
       {
-        model: ProductTranslation,
-        as: 'productTranslation',
+        model: ProductI18n,
+        as: 'i18n',
         where: {
-          lang,
+          lang: languages,
         },
+        attributes: {
+          exclude: ['id', 'productId', 'lang', 'createdAt', 'updatedAt'],
+        },
+        limit: 1,
+        order: [fn('array_position', languages, col('lang'))],
       },
     ],
   }),
@@ -19,20 +25,20 @@ export class Product extends Model {
   @Column
   code: string;
 
-  @HasMany(() => ProductTranslation)
-  productTranslation: ProductTranslation[];
+  @HasMany(() => ProductI18n)
+  i18n: ProductI18n[];
 
   toJSON() {
     const product: any = super.toJSON();
 
-    if (!product.productTranslation) return product;
+    if (product.i18n.length !== 1) {
+      delete product.i18n;
+      return product;
+    }
 
-    const translation: any = this.productTranslation[0]?.toJSON();
+    const i18n: any = product.i18n[0];
+    delete product.i18n;
 
-    delete product.productTranslation;
-    delete translation.lang;
-    delete translation.productId;
-
-    return { ...product, ...translation };
+    return { ...product, ...i18n };
   }
 }

@@ -1,9 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class PhotoUploadReqDto {
+export class MediaCreateReqDto {
   @ApiProperty({
     type: 'file',
-    isArray: true,
   })
-  photos: any;
+  file: any;
 }
